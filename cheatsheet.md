@@ -31,14 +31,60 @@ println(box.map{it * 2})
 
 
 ### JRuby
+
 ```jruby
 def my_block
    puts "One"
-   yield (6, 5)
+   r = yield (6, 5)
+   puts "Two
+   r
 end
 
 puts my_block do |x, y| x + y end
+
+puts my_block {|x, y| x + y}
 ```
 
+Unfortunately, we cannot assign a block to a variable, therefore a change:
 
+```jruby
+def my_proc(p)
+   puts "One"
+   r = p.call(6, 5)
+   puts "Two"
+   r
+end
 
+p = Proc.new{|x, y| x * y}
+puts(my_proc p)
+```
+
+A `lambda` is a `Proc`, but stricter, you cannot call a `lambda` with more than the required arguments
+
+```jruby
+def my_proc(p)
+   puts "One"
+   r = p.call(6, 5)
+   puts "Two"
+   r
+end
+
+p = Proc.new{|x, y, z| x * y}
+puts(my_proc p) #OK
+
+lamb = lambda{|x, y, z| x * y}
+#puts(my_proc lamb) #Wrong
+```
+
+If the block is already set in stone, convert the `Proc` to a block with `&`
+```jruby
+def my_block
+   puts "One"
+   r = yield(6, 5)
+   puts "Two
+   r
+end
+
+p = Proc.new{|x, y| x + y}
+puts(my_block(&p))
+```
