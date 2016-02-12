@@ -174,4 +174,40 @@ println(List(1,2,3,4).filter(x => x % 2 == 0)) //type inference
 //With Placeholders
 println(List(1,2,3,4).filter(_ % 2 == 0)) //type inference
 ```
- 
+
+##Collections
+
+###Groovy
+Lists:
+```groovy
+def list = [1,2,3,4]
+```
+
+Sets:
+```groovy
+def set = [1,2,3,4] as Set
+```
+
+Maps:
+```groovy
+def map = [1: 'One', 2 : 'Two', 3 : 'Three']
+```
+
+###JRuby
+Arrays:
+```jruby
+a = [1,2,3,4]
+```
+
+Sets:
+```jruby
+require 'set'
+s = [1,2,3,4].to_set
+s2 = Set.new [1,2,3,4]
+```
+
+Hashes:
+```jruby
+h = {1 => 'One', 2 => 'Two', 3 => 'Three'}
+puts(h[1])
+```
