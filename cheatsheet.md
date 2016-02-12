@@ -81,7 +81,7 @@ If the block is already set in stone, convert the `Proc` to a block with `&`
 def my_block
    puts "One"
    r = yield(6, 5)
-   puts "Two
+   puts "Two"
    r
 end
 
