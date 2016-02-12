@@ -1,4 +1,4 @@
-#Learning Five Languages in Five Years Cheat sheet
+#Learning Five Languages in Five Years Cheat Sheet
 
 ## Lambdas
 
