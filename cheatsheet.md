@@ -88,3 +88,27 @@ end
 p = Proc.new{|x, y| x + y}
 puts(my_block(&p))
 ```
+
+Now we, can continue with our standard examples
+```jruby
+p = Proc.new{|x| x + 1}
+puts([1,2,3,4].collect(&p)) #map equivalent
+puts([1,2,3,4].collect{|x| x + 1} #inline call to block
+
+p = Proc.new{|x| x % 2 == 0}
+puts([1,2,3,4].select(p))#filter equivalent
+puts([1,2,3,4].select{|x| x % 2 == 0}) //inline closure
+```
+
+NOTE: There are no implicit variables in Ruby/JRuby
+
+
+###Clojure
+```clojure
+;; Defines an anonymous function
+(def my-f (fn [x] (+ x 1)))
+```
+Can also be written as:
+```clojure
+(defn my-f [x] (+ x 1))
+```
