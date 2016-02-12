@@ -191,12 +191,17 @@ def set = [1,2,3,4] as Set
 Maps:
 ```groovy
 def map = [1: 'One', 2 : 'Two', 3 : 'Three']
+def value = map.get(1)
+map << [4 : 'Four']
+def result = map.containsKey(4) //True
 ```
 
 ###JRuby
 Arrays:
 ```jruby
 a = [1,2,3,4]
+a << 5
+a.include? 3 #true
 ```
 
 Sets:
@@ -204,10 +209,15 @@ Sets:
 require 'set'
 s = [1,2,3,4].to_set
 s2 = Set.new [1,2,3,4]
+s2 << 5 #Add an item
+s2.include? 4 #true
 ```
 
 Hashes:
 ```jruby
 h = {1 => 'One', 2 => 'Two', 3 => 'Three'}
+h[4] = 'Four' #Add an item
 puts(h[1])
+h.include? 1 #true
+h.has_key? 3 #true
 ```
