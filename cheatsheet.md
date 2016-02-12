@@ -224,13 +224,13 @@ h.has_key? 3 #true
 
 ###Clojure
 Lists (not typical):
-```
+```clojure
 (def my-list '(1 2 3 4 5))
 (conj my-list 6) ;; placed in the beginning
 ```
 
 Vectors (Preferred over lists):
-```
+```clojure
 (def my-vector [1 2 3 4])
 (def my-vector-2 (vector 1 2 3 4))
 (conj my-vector 5) ;; placed at the end
@@ -240,7 +240,7 @@ Vectors (Preferred over lists):
 ```
 
 Sets:
-```
+```clojure
 (def my-set (set [1 2 3 4]))
 (def my-set-2 #{1 2 3 4})
 (conj my-set 5)
@@ -248,7 +248,7 @@ Sets:
 ```
 
 Maps:
-```
+```clojure
 (def my-map {1 :One 2 :Two 3 :Three}); :before are keywords
 (assoc my-map 4 :Four) ;Add an item to the map
 (contains? my-map 3)
