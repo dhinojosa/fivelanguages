@@ -118,17 +118,22 @@ Can also be written as:
 Therefore:
 ```clojure
 (defn my-f [x] (+ x 1))
+
+;; using the declared function
 (println (map my-f [1 2 3 4]))
 
 ;; anonymous function
 (println (map (fn [x] (+ x 1)) [1 2 3 4]))
+
 ;; anonymous function, % is placeholder for first parameter
 (println (map #(+ % 1) [1 2 3 4]))
+
 ;; anonymous function, %1 is stating the first parameter explicitly
 (println (map #(+ %1 1) [1 2 3 4]))
 
 (defn my-f2 [x] (= (mod x 2) 0))
 
+;; using the declared function
 (println (filter my-f2 [1 2 3 4]))
 ;; anonymous function
 (println (filter (fn [x] (= (mod x 2) 0)) [1 2 3 4]))
@@ -137,4 +142,36 @@ Therefore:
 ;; anonymous function, %1 is stating the first parameter explicitly
 (println (filter #(= (mod %1 2) 0) [1 2 3 4]))
 ```
+###Scala
+```scala
+val f = (x:Int) => x + 1 //Just one way to do this
+val f2 = {x:Int => x + 1} //Another format
 
+//Using Declared Function
+println(List(1,2,3,4).map(f))
+
+//Using Declared Function Variant
+println(List(1,2,3,4).map(f))
+
+//Anonymous Inner Function Inline
+println(List(1,2,3,4).map(x => x + 1)
+
+//Variant. Brackets Supports Multilines
+println(List(1,2,3,4).map{x => x + 1}
+
+//Anonymous Function. _ is a placeholder
+println(List(1,2,3,4).map(_ + 1))
+
+val f3 = (x:Int) => x % 2 == 0
+
+println(List(1,2,3,4).filter(f3))
+println(List(1,2,3,4) filter f3) //Infix
+
+//Anonymous Inner Function and Inline
+println(List(1,2,3,4).filter((x:Int) => x % 2 == 0))
+println(List(1,2,3,4).filter(x => x % 2 == 0)) //type inference
+
+//With Placeholders
+println(List(1,2,3,4).filter(_ % 2 == 0)) //type inference
+```
+ 
