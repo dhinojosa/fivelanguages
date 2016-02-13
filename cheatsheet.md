@@ -326,7 +326,8 @@ box.setValue(20)
 println(box.map{it * 2})
 ```
 
-Shorter form using `groovy.tranform.Canonical`
+Shorter form using `groovy.tranform.Canonical` and optionally not wanting to use
+generics
 
 ```groovy
 import groovy.transform.*
