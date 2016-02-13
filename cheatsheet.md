@@ -14,19 +14,6 @@ println([1,2,3,4].grep(c) //filter equivalent
 println([1,2,3,4].grep{x -> x % 2 == 0} //inline closure
 println([1,2,3,4].grep{it % 2 == 0} //using implied it
 
-class Box<T> {
-   def T value
-   public Box(T value) {
-      this.value = value
-   }
- 
-   def Box<U> map(c) {
-      new Box(c(value))
-   }
-}
-
-Box box = new Box(14)
-println(box.map{it * 2})
 ```
 
 
@@ -297,4 +284,184 @@ myMap.contains(3) //true
 myMap.apply(4) //Return answer if exist, error otherwise
 myMap.get(4) //Returns an Option, safer alternative
 ```
+##Classes
 
+###Groovy
+```groovy
+class Box<T> {
+   def T value
+   
+   public Box(T value) {
+      this.value = value
+   }
+   
+   def setValue(T value) {
+      this.value = value
+   }
+
+   def getValue() {
+      return value;
+   }
+
+   def boolean equals(Object o) {
+      if (o instanceof Box) false
+      else {
+        Box other = (Box) o
+        this.value == other.value
+      }
+   }
+   
+   @Override
+   def String toString() {
+      "Box{${value}}"
+   }
+
+   def <U> Box<U> map(c) {
+      new Box(c(value))
+   }
+}
+
+Box box = new Box(14)
+box.setValue(20)
+println(box.map{it * 2})
+```
+
+```
+import groovy.transform.*
+
+@Canonical
+class Box {
+   def value
+   def map(c) {
+      new Box(c(value))
+   }
+}
+
+def box = new Box(14)
+println(box.map{it * 2})
+```
+
+###JRuby
+```jruby
+class Box
+
+  def initialize(v)
+    @value = v
+  end
+
+  def map
+    Box.new(yield(@value))
+  end
+
+  def value=(v)
+    @value = v
+  end
+
+  def value
+    @value
+  end
+
+  def ==(o)
+    o.value == @value
+  end
+  
+  # True if the receiver and argument have both
+  # the same type and equal values
+  def eql?(other)
+    self.class == other.class &&
+        self == other
+  end
+
+  def to_s
+    "Box{#{@value}}"
+  end
+
+  def hash
+    71 + (@value.hash ^ 33)
+  end
+end
+
+box = Box.new(14)
+box.value = 20
+puts box.map{|x| x * 2}
+```
+Using `attr_reader` and `attr_writer`
+```jruby
+class Box
+  #Make a "getter"
+  attr_reader :value
+  #Make a "setter"
+  attr_writer :value
+
+  def initialize(v)
+    @value = v
+  end
+
+  def map
+    Box.new(yield(@value))
+  end
+
+  def ==(o)
+    o.value == @value
+  end
+
+  # True if the receiver and argument have both
+  # the same type and equal values
+  def eql?(other)
+    self.class == other.class &&
+        self == other
+  end
+
+  def to_s
+    "Box{#{@value}}"
+  end
+
+  def hash
+    71 + (@value.hash ^ 33)
+  end
+end
+
+box = Box.new(14)
+box.value = 20
+puts box.map{|x| x * 2}
+```
+
+Using `attr_accessor`
+
+```jruby
+class Box
+  #Make a "getter" and a "setter"
+  attr_accessor :value
+
+  def initialize(v)
+    @value = v
+  end
+
+  def map
+    Box.new(yield(@value))
+  end
+
+  def ==(o)
+    o.value == @value
+  end
+
+  # True if the receiver and argument have both
+  # the same type and equal values
+  def eql?(other)
+    self.class == other.class &&
+        self == other
+  end
+
+  def to_s
+    "Box{#{@value}}"
+  end
+
+  def hash
+    71 + (@value.hash ^ 33)
+  end
+end
+
+box = Box.new(14)
+box.value = 20
+puts box.map{|x| x * 2}
+```
