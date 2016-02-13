@@ -215,8 +215,11 @@ s2.include? 4 #true
 
 Hashes:
 ```jruby
-h = {1 => 'One', 2 => 'Two', 3 => 'Three'}
-h[4] = 'Four' #Add an item
+# :One, :Two, and :Three are Ruby Symbols
+# much like Scala Symbols and Clojure Keywords
+
+h = {1 => :One, 2 => :Two, 3 => :Three}
+h[4] = :Four #Add an item
 puts(h[1])
 h.include? 1 #true
 h.has_key? 3 #true
@@ -249,6 +252,10 @@ Sets:
 
 Maps:
 ```clojure
+
+;; :One, :Two, and :Three are Clojure Keywords
+;; much like Ruby Symbols and Scala Symbols
+
 (def my-map {1 :One 2 :Two 3 :Three}); :before are keywords
 (assoc my-map 4 :Four) ;Add an item to the map
 (contains? my-map 3)
@@ -277,6 +284,10 @@ mySet.contains(4)
 
 Maps:
 ```scala
+
+//'One, 'Two, and 'Three are scala.lang.Symbols
+// much like Ruby Symbols and Clojure Keywords
+
 val myMap = Map((1, 'One), (2, 'Two), (3, 'Three))
 val myMap2 = Map((1, 'One), (2, 'Two), (3, 'Three))
 val myMap2 = Map(1  -> 'One, 2 -> 'Two, 3 -> 'Three)
