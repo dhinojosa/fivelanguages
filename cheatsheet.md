@@ -468,3 +468,88 @@ box = Box.new(14)
 box.value = 20
 puts box.map{|x| x * 2}
 ```
+###Clojure
+```clojure
+
+(defprotocol Functor
+  (mapf [item f])
+  )
+
+(defrecord Person [first-name last-name]
+  Functor
+  (mapf [this f] (f (get this :first-name))))
+
+(def dan (Person. "Dan" "Hinojosa"))
+
+(prn (:first-name dan))
+(prn (mapf dan #(.toUpperCase %)))
+(prn (get dan :first-name))
+```
+
+###Scala
+```scala
+class Box[T] (x:T){
+    var v:T = x
+    def value = v
+    def value_=(x:T) = v = x
+    def map[U](f:T => U) = {
+      new Box[U](f(v))
+    }
+    override def toString = s"Box{$v}"
+    override def equals(x:Any) = x match {
+      case b:Box[_] => b.value == this.value
+      case _ => false
+    }
+    override def hashCode = {
+      var result = 193
+      result = 31 * (result + v.hashCode())
+      result
+    }
+}
+
+object RunBox extends App {
+  val box = new Box[Int](4)
+  box.value = 30
+  println(box)
+  println(box.map(x => x * 2))
+}
+```
+
+Converting to an immutable idiomatic Scala
+
+```scala
+class Box[T](val value: T) {
+   def map[U](f:T=>U) = new Box(f(value))
+   override def toString = s"Box{$v}"
+   override def equals(x:Any) = x match {
+      case b:Box[_] => b.value == this.value
+      case _ => false
+    }
+    override def hashCode = {
+      var result = 193
+      result = 31 * (result + v.hashCode())
+      result
+    }
+}
+
+object RunBox extends App {
+  val box = new Box(4)
+  println(box)
+  println(box.map(x => x * 2))
+}
+```
+
+`toString`, `hashCode`, `equals`, pattern matching can be automatic with `case class`
+
+```scala
+case class Box[T](val value: T) {
+   def map[U](f:T=>U) = new Box(f(value))
+}
+
+object RunBox extends App {
+  val box = new Box(4)
+  println(box)
+  println(box.map(x => x * 2))
+}
+```
+
