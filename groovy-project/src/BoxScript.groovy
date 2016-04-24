@@ -33,5 +33,4 @@ class Box<T> {
 
 
 Box box = new Box(14)
-//box.setValue(20)
-//println(box.map{it * 2})
+println(box.map{it * 2})
