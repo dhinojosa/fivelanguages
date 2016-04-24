@@ -7,7 +7,8 @@ import java.util.List;
 
 public class UsingPredicate {
 
-    public static <T> List<T> myFilter (List<T> items, MyPredicate<T> predicate) {
+    public static <T> List<T> myFilter (List<T> items,
+                       MyPredicate<T> predicate) {
         List<T> result = new ArrayList<>();
         for (T t:items) {
             if (predicate.apply(t)) {
@@ -19,12 +20,8 @@ public class UsingPredicate {
 
     public static void main(String[] args) {
         List<Integer> original = Arrays.asList(3,4,6,7,3,1,6,10);
-        List<Integer> result = myFilter(original, new MyPredicate<Integer>() {
-            @Override
-            public boolean apply(Integer integer) {
-                return integer % 2 == 0;
-            }
-        });
+        List<Integer> result = myFilter(original,
+                integer -> integer % 2 == 0);
         System.out.println("result = " + result);
     }
 }
